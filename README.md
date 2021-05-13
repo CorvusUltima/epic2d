@@ -4,7 +4,7 @@ This is the forerunner of the E.P.I.C 3d engine in the making, the small framewo
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [D&C team](#D&C team)
+* [D&C Team](#team)
 * [Setup](#setup)
 
 ## General info
@@ -30,7 +30,7 @@ Sound: loading and playing sounds
 c++
 VS 2019
 
-## D&C team
+## Team
 
 D&C is a duo of software developers.
 
