@@ -236,6 +236,11 @@
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\..\..\..\Downloads\fball_24_bottom-top.bmp" />
+    <Image Include="..\..\..\..\..\..\..\Downloads\fball_24_top-bottom.bmp" />
+    <Image Include="..\..\..\..\..\..\..\Downloads\fball_32_bottom_top.bmp" />
+    <Image Include="..\..\..\..\..\blog slike\parrots.bmp" />
+    <Image Include="..\..\..\..\..\blog slike\test.bmp" />
     <Image Include="Chili.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -25,6 +25,7 @@
 #include "ChiliException.h"
 #include "Colors.h"
 #include "Vec2.h"
+#include"Sprite.h"
 
 class Graphics
 {
@@ -71,6 +72,8 @@ public:
 	{
 		DrawLine({ (float)x0, (float)y0 }, { (float)x1, (float)y1 }, c);
 	}
+	void DrawSprite(int x, int y, const Sprite& s);
+	
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

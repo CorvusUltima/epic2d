@@ -1,4 +1,45 @@
 #include "Sprite.h"
+#include"ChiliWin.h"
+#include<fstream>
+#include"assert.h"
+
+Sprite::Sprite(const std::string& filename)
+{
+	std::ifstream file(filename, std::ios::binary);
+	assert(file);
+
+	BITMAPFILEHEADER bmFileheader;
+
+	file.read(reinterpret_cast<char*>(&bmFileheader), sizeof(bmFileheader));
+
+	BITMAPINFOHEADER bmInfoHeader;
+
+	file.read(reinterpret_cast<char*>(&bmInfoHeader), sizeof(bmInfoHeader));
+
+	assert(bmInfoHeader.biBitCount == 24);
+	assert(bmInfoHeader.biCompression == BI_RGB);
+
+	const int width = bmInfoHeader.biWidth;
+	const int height = bmInfoHeader.biHeight;
+
+	pPixels = new Color[width * height];
+
+	file.seekg(bmFileheader.bfOffBits); // bm file starts with offset in pixel count  
+
+	const int padding = (4 - (width * 3) % 4) % 4;  
+	const unsigned char b = file.get();
+	const unsigned char g = file.get();
+	const unsigned char r = file.get();
+
+	for (int y = height - 1; y >= 0; y--)
+	{
+		for (int x = 0; x < width; x++)
+		{	
+			PutPixel(x, y, Color(b,g,r ));
+		}
+		file.seekg(padding, std::ios::cur);
+	}
+}
 
 Sprite::Sprite(int width, int height)
 	:
