@@ -73,6 +73,8 @@ public:
 		DrawLine({ (float)x0, (float)y0 }, { (float)x1, (float)y1 }, c);
 	}
 	void DrawSprite(int x, int y, const Sprite& s);
+
+	void  DrawSpriteFrame(int x, int y, const Sprite& s,int columnNumbers ,int rowNumbers, int frameNumber);
 	
 	~Graphics();
 private:

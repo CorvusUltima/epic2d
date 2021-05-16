@@ -253,6 +253,30 @@ void Graphics::DrawSprite(int x, int y, const Sprite& s)
 	}
 }
 
+void Graphics::DrawSpriteFrame(int x, int y, const Sprite& s, int columnNumbers, int rowNumbers,int picture)
+{
+
+	int width = s.GetWidth()/ columnNumbers;
+	int height = s.GetHeight()/ rowNumbers;
+	int nSpriteSheets = width * height;
+	
+	for (int sy = picture*height; sy < (picture * height)+height; sy++)
+	{
+		for (int sx = picture * width; sx < (picture * width)+width; sx++)
+		{
+			PutPixel(x + sx, y + sy, s.GetPixel(sx, sy));
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
 Graphics::~Graphics()
 {
 	// free sysbuffer memory (aligned free)
