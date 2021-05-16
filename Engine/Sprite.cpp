@@ -16,30 +16,67 @@ Sprite::Sprite(const std::string& filename)
 
 	file.read(reinterpret_cast<char*>(&bmInfoHeader), sizeof(bmInfoHeader));
 
-	assert(bmInfoHeader.biBitCount == 24);
+	assert(bmInfoHeader.biBitCount == 24|| bmInfoHeader.biBitCount==32);
 	assert(bmInfoHeader.biCompression == BI_RGB);
 
 	 width = bmInfoHeader.biWidth;
-	 height = bmInfoHeader.biHeight;
-
-	pPixels = new Color[width * height];
-
 	file.seekg(bmFileheader.bfOffBits); // bm file starts with offset in pixel count  
 
-	const int padding = (4 - (width * 3) % 4) % 4;  
+	const int padding = (4 - (width * 3) % 4) % 4; 
+	
+	bool is32Bit = bmInfoHeader.biBitCount == 32;
 
-	for (int y = height - 1; y >= 0; y--)
+	if (bmInfoHeader.biHeight < 0)
 	{
-		for (int x = 0; x < width; x++)
-		{	
-			const unsigned char b = file.get();
-			const unsigned char g = file.get();
-			const unsigned char r = file.get();
+		height = -bmInfoHeader.biHeight;
+		pPixels = new Color[width * height];
 
-			PutPixel(x, y, Color(b,g,r ));
+		for (int y =0; y <height-1; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				const unsigned char b = file.get();
+				const unsigned char g = file.get();
+				const unsigned char r = file.get();
+
+				PutPixel(x, y, Color(b, g, r));
+				if (is32Bit)
+				{
+					file.seekg(1, std::ios::cur);
+				}
+			}
+			if (!is32Bit)
+			{
+				file.seekg(padding, std::ios::cur);
+			}
 		}
-		file.seekg(padding, std::ios::cur);
+
 	}
+	else {
+		height = bmInfoHeader.biHeight;
+		pPixels = new Color[width * height];
+
+		for (int y = height - 1; y >= 0; y--)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				const unsigned char b = file.get();
+				const unsigned char g = file.get();
+				const unsigned char r = file.get();
+
+				PutPixel(x, y, Color(b, g, r));
+				if (is32Bit)
+				{
+					file.seekg(1, std::ios::cur);
+				}
+			}
+			if (!is32Bit)
+			{
+				file.seekg(padding, std::ios::cur);
+			}
+		}
+	}
+
 }
 
 Sprite::Sprite(int width, int height)

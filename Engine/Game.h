@@ -48,5 +48,5 @@ private:
 	/*  User Variables              */
     FrameTimer ft;
 	/********************************/
-	Sprite sprite = Sprite("fball_24_bottom-top.bmp");
+	Sprite sprite = Sprite("fball_32_bottom_top.bmp");
 };
